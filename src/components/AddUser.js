@@ -41,7 +41,7 @@ const AddUser = () => {
                 <br />
                 <input onBlur={handleOnBlur} type="email" name="email" id="" required />
                 <br />
-                <input onBlur={handleOnBlur} type="password" name="password" id="" required />
+                <input onBlur={handleOnBlur} type="text" name="address" id="" required />
                 <br />
                 <button type="submit">Add User</button>
             </form>

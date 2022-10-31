@@ -3,14 +3,26 @@ import { useLoaderData } from 'react-router-dom';
 
 const Update = () => {
     const storedUser = useLoaderData();
-
     const [user, setUser] = useState(storedUser)
-
 
     const handleUpdateUser = (event) => {
         event.preventDefault();
         console.log(user)
-
+        console.log(storedUser._id);
+        fetch(`http://localhost:5000/users/${storedUser._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     const handleInputChange = (event) => {
@@ -29,6 +41,8 @@ const Update = () => {
                 <input onChange={handleInputChange} defaultValue={storedUser.name} type="text" name="name" id="" required />
                 <br />
                 <input onChange={handleInputChange} defaultValue={storedUser.email} type="email" name="email" id="" required />
+                <br />
+                <input onChange={handleInputChange} defaultValue={storedUser.address} type="text" name="address" id="" required />
                 <br />
                 <button type="submit">Update User</button>
             </form>
