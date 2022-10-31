@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const Home = () => {
     const users = useLoaderData();
@@ -17,14 +17,13 @@ const Home = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.deletedCount > 0) {
-
                         const remainedUser = displayUser.filter(usr => usr._id !== _id)
                         setDisplayUser(remainedUser)
                     }
-
                 })
         }
     }
+
     return (
         <div>
             <h1>This is home</h1>
@@ -32,6 +31,7 @@ const Home = () => {
                 {
                     displayUser.map(user =>
                         <p key={user._id}>{user.name}: {user.email}
+                            <Link to={`/update/${user._id}`}><button>update</button></Link>
                             <button onClick={() => handleDelete(user._id)}>X</button>
                         </p>)
                 }
